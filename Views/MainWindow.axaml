@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:File.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="File.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="File Manager">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid Margin="10" RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,*">
+        <!-- Files List -->
+        <ListBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Category}"/>
+                        <TextBlock Text="{Binding Size}"/>
+                        <TextBlock Text="{Binding Location}" FontStyle="Italic"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Controls -->
+        <StackPanel Grid.Row="2" Spacing="5" Margin="0,10,0,0">
+            <TextBox Watermark="New location" Text="{Binding SelectedLocation}"/>
+            <Button Content="Copy File" Command="{Binding CopyFileCommand}"/>
+            <Button Content="Move File" Command="{Binding MoveFileCommand}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Spacing="5" Margin="0,10,0,0">
+            <TextBox Watermark="New name" Text="{Binding NewName}"/>
+            <Button Content="Rename File" Command="{Binding RenameFileCommand}"/>
+        </StackPanel>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="File Manager" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+    </Grid>
+</Window>
